@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myBetApp">
+  <head>
+    <title>ColossusBets Pools</title>
+    <link href="content/css/styles.css" rel="stylesheet" type="text/css" />
+	  <script src="app\lib\angular.min.js"></script>
+    <!--<script src="app\lib\angular-route.min.js"></script>
+    <script src="app\lib\angular-animate.min.js"></script>-->
+    <script src="app\app.js"></script>
+  </head>
+  <body>
+    <header ng-include="'includes/header.html'"></header>
+	  <content ng-controller="pollsController">
+      <div class="content">
+        <div id="pools" class="menu-bar-left">
+          <h1>Pools</h1>
+          <!--Recursive call to display all pools-->
+          <script type="text/ng-template"  id="tree_item_renderer.html">
+              <h3>{{group.display_group_name}}</h3>
+              {{group.polls}}
+              <ul>
+                  <li ng-repeat="pool in group.pools">
+
+                      <a href="" ng-click="updatePool(pool.id); $event.stopPropagation();">{{pool.name}}</a>
+
+                  </li>
+                  <li ng-repeat="group in group.groups | orderBy:'display_group_order'" ng-include="'tree_item_renderer.html'">
+                  </li>
+              </ul>
+          </script>
+          <ul>
+              <li ng-repeat="group in groups | orderBy:'display_group_order'" ng-include="'tree_item_renderer.html'"></li>
+          </ul>
+        </div>
+
+        <!--Display Pool Details-->
+        <div id="pool-details">
+
+          <div class="full-width">
+            <div class="in-block">
+              <h1>Pools details</h1>
+              <button ng-disabled="totalLines == 0" ng-click="clearSelection()" ng-class="{'disabled':totalLines == 0}">Clear</button>
+              <select data-ng-options="o.label for o in options" data-ng-model="selectedOption"></select>
+              <button ng-disabled="totalLines == 0" ng-click="validateSelection()" id="validate-btn" ng-class="{'disabled':totalLines == 0}">Play now</button>
+            </div>
+            <h3>Number of lines : ‎{{totalLines}} - Ticket cost : ‎£{{totalLines * selectedOption.id}}</h3>
+          </div>
+
+          <div ng-repeat="leg in selectedPool.legs" class="leg-content">
+            <div class="full-width">
+              <span class="home-name"><h2>{{leg.sport_event.add_info_json.home_name}}</h2></span>
+              <span class="away-name"><h2>{{leg.sport_event.add_info_json.away_name}}</h2></span>
+            </div>
+            <div class="in-block">
+              <div class="selection"
+                  ng-repeat="selection in leg.selections | orderBy:'display_order'"
+                  ng-class="{active : isSelected(selection.id)}"
+                  ng-click="updateSelection(leg.id, selection.id)">
+                  {{selection.name}}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </content>
+    <footer>
+    </footer>
+  </body>
+</html>
