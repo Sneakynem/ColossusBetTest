@@ -27,7 +27,7 @@
               <select data-ng-options="o.label for o in options" data-ng-model="selectedOption"></select>
               <button ng-disabled="totalLines == 0" ng-click="validateSelection()" id="validate-btn" ng-class="{'disabled':totalLines == 0}">Play now</button>
             </div>
-            <h3>Number of lines : ‎{{totalLines}} - Ticket cost : ‎£{{totalLines * selectedOption.id}}</h3>
+            <h3>Number of lines : ‎{{totalLines}} - Ticket cost : ‎£{{totalAmount = totalLines * selectedOption.id}}</h3>
           </div>
           <!--Display all the pool legs-->
           <div ng-repeat="leg in selectedPool.legs" class="leg-content">
