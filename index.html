@@ -45,7 +45,7 @@
             </div>
             <h3>Number of lines : ‎{{totalLines}} - Ticket cost : ‎£{{totalLines * selectedOption.id}}</h3>
           </div>
-
+          <!--Display all the pool legs-->
           <div ng-repeat="leg in selectedPool.legs" class="leg-content">
             <div class="full-width">
               <span class="home-name"><h2>{{leg.sport_event.add_info_json.home_name}}</h2></span>
@@ -60,11 +60,8 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </content>
-    <footer>
-    </footer>
   </body>
 </html>
