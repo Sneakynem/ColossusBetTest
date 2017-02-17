@@ -149,8 +149,9 @@ myBetApp.controller('pollsController',['$scope','$http', function($scope, $http)
         "selectionId": $scope.selectedLegsId
       };
       console.log("tickets : " + JSON.stringify(tickets));
-      // Send object thorought the API, but The link seems wrong...
-      $http.post('https://colossusdevtest.herokuapp.com/api/', JSON.stringify(tickets), {headers: {'Content-Type': 'application/json'}})
+      // Send object thorought the API, but The link provided seems wrong. It shouldn't b a json file, but a service instead
+      var linkPost = 'https://colossusdevtest.herokuapp.com/api/tickets.json';
+      $http.post(linkPost, JSON.stringify(tickets), {headers: {'Content-Type': 'application/json'}})
         .then(
           // Success
           function(result){
@@ -161,7 +162,7 @@ myBetApp.controller('pollsController',['$scope','$http', function($scope, $http)
           // Error
           function(result){
             console.error("API post error :" + JSON.stringify(result));
-            alert('Oh no! something happened!\nstatus : '+result.status+'\n error : ' +result.statusText+' \n'+result.data+'\n' +JSON.stringify(result));
+            alert('Sorry, it\'s not working!\nLink :'+linkPost+'\nThe link provided seems wrong. it shouldn\'t be a json file, but a service instead\nstatus : '+result.status+'\n error : ' +result.statusText+' \n'+result.data+'\n' +JSON.stringify(result));
           });
 
     };

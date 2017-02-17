@@ -14,28 +14,12 @@
       <div class="content">
         <div id="pools" class="menu-bar-left">
           <h1>Pools</h1>
-          <!--Recursive call to display all pools-->
-          <script type="text/ng-template"  id="tree_item_renderer.html">
-              <h3>{{group.display_group_name}}</h3>
-              {{group.polls}}
-              <ul>
-                  <li ng-repeat="pool in group.pools">
-
-                      <a href="" ng-click="updatePool(pool.id); $event.stopPropagation();">{{pool.name}}</a>
-
-                  </li>
-                  <li ng-repeat="group in group.groups | orderBy:'display_group_order'" ng-include="'tree_item_renderer.html'">
-                  </li>
-              </ul>
-          </script>
           <ul>
               <li ng-repeat="group in groups | orderBy:'display_group_order'" ng-include="'tree_item_renderer.html'"></li>
           </ul>
         </div>
-
         <!--Display Pool Details-->
         <div id="pool-details">
-
           <div class="full-width">
             <div class="in-block">
               <h1>Pools details</h1>
@@ -63,5 +47,17 @@
         </div>
       </div>
     </content>
+    <!--Recursive call to display all pools-->
+    <script type="text/ng-template"  id="tree_item_renderer.html">
+        <h3>{{group.display_group_name}}</h3>
+        {{group.polls}}
+        <ul>
+            <li ng-repeat="pool in group.pools">
+                <a href="" ng-click="updatePool(pool.id); $event.stopPropagation();">{{pool.name}}</a>
+            </li>
+            <li ng-repeat="group in group.groups | orderBy:'display_group_order'" ng-include="'tree_item_renderer.html'">
+            </li>
+        </ul>
+    </script>
   </body>
 </html>
